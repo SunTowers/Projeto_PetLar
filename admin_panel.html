@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Painel Administrativo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="container page-intro admin-intro">
+      <span class="eyebrow">Administração</span>
+      <h1>Painel administrativo</h1>
+      <p>Monitore usuários, publicações e solicitações de adoção. A moderação administrativa não altera a decisão final de adoção, que continua com o anunciante.</p>
+    </section>
+
+    <section class="container admin-metrics-grid" id="adminMetricsGrid">
+      <article class="admin-metric-card">
+        <span>Usuários ativos</span>
+        <strong id="metricActiveUsers">--</strong>
+      </article>
+      <article class="admin-metric-card">
+        <span>Usuários suspensos</span>
+        <strong id="metricSuspendedUsers">--</strong>
+      </article>
+      <article class="admin-metric-card">
+        <span>Administradores</span>
+        <strong id="metricAdmins">--</strong>
+      </article>
+      <article class="admin-metric-card">
+        <span>Anúncios visíveis</span>
+        <strong id="metricAvailableAnimals">--</strong>
+      </article>
+      <article class="admin-metric-card">
+        <span>Anúncios ocultos</span>
+        <strong id="metricHiddenAnimals">--</strong>
+      </article>
+      <article class="admin-metric-card">
+        <span>Solicitações pendentes</span>
+        <strong id="metricPendingRequests">--</strong>
+      </article>
+    </section>
+
+    <section class="container admin-section-block">
+      <div class="admin-section-heading">
+        <div>
+          <span class="eyebrow">Papéis e acesso</span>
+          <h2>Usuários</h2>
+        </div>
+        <p>Promova administradores, suspenda contas ou reative usuários.</p>
+      </div>
+      <div class="admin-list" id="adminUsersList"></div>
+      <p class="empty-state hidden" id="adminUsersEmpty">Nenhum usuário encontrado.</p>
+    </section>
+
+    <section class="container admin-section-block">
+      <div class="admin-section-heading">
+        <div>
+          <span class="eyebrow">Moderação de conteúdo</span>
+          <h2>Anúncios</h2>
+        </div>
+        <p>Oculte publicações inadequadas ou restaure anúncios moderados.</p>
+      </div>
+      <div class="admin-list" id="adminAnimalsList"></div>
+      <p class="empty-state hidden" id="adminAnimalsEmpty">Nenhum anúncio encontrado.</p>
+    </section>
+
+    <section class="container admin-section-block">
+      <div class="admin-section-heading">
+        <div>
+          <span class="eyebrow">Acompanhamento</span>
+          <h2>Solicitações de adoção</h2>
+        </div>
+        <p>Visão completa para auditoria. Aprovação e rejeição continuam sendo feitas apenas pelo dono do anúncio.</p>
+      </div>
+      <div class="admin-list" id="adminRequestsList"></div>
+      <p class="empty-state hidden" id="adminRequestsEmpty">Nenhuma solicitação encontrada.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

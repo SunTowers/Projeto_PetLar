@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: petlar
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_BOOTSTRAP_KEY
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: PG_SSL
+        sync: false

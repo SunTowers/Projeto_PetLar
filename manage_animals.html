@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Meus Animais</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-intro">
+      <span class="eyebrow">Gerenciar animais</span>
+      <h1>Seu painel de adoção e publicações</h1>
+      <p>Acompanhe seus anúncios, histórico de publicações e solicitações de adoção.</p>
+    </div>
+
+    <!-- Animais Adotados Section -->
+    <section class="container manage-section">
+      <h2>Animais Adotados</h2>
+      
+      <div class="manage-subsection">
+        <h3>Solicitações em andamento</h3>
+        <div class="cards-grid" id="myRequestCards"></div>
+        <p id="myRequestsEmpty" class="empty-state">Você não tem solicitações de adoção em andamento.</p>
+      </div>
+
+      <div class="manage-subsection">
+        <h3>Histórico de adoções</h3>
+        <div class="cards-grid" id="adoptionHistoryCards"></div>
+        <p id="adoptionHistoryEmpty" class="empty-state">Você ainda não tem um histórico de adoções.</p>
+      </div>
+    </section>
+
+    <!-- Animais Postados Section -->
+    <section class="container manage-section">
+      <h2>Animais Postados</h2>
+      
+      <div class="manage-subsection">
+        <div class="subsection-header">
+          <h3>Animais publicados</h3>
+          <a class="button button-primary" href="animal_registration.html">+ Cadastrar animal</a>
+        </div>
+        <div class="cards-grid" id="userAnimalCards"></div>
+        <p id="userAnimalsEmpty" class="empty-state">Você ainda não publicou nenhum animal.</p>
+      </div>
+
+      <div class="manage-subsection">
+        <h3>Solicitações recebidas</h3>
+        <div class="cards-grid" id="receivedRequestCards"></div>
+        <p id="receivedRequestsEmpty" class="empty-state">Você não tem solicitações de adoção recebidas.</p>
+      </div>
+
+      <div class="manage-subsection">
+        <h3>Histórico de publicações</h3>
+        <div class="cards-grid" id="postedHistoryCards"></div>
+        <p id="postedHistoryEmpty" class="empty-state">Você ainda não tem um histórico de publicações.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

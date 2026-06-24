@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Editar Animal</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-intro">
+      <span class="eyebrow">Edição</span>
+      <h1>Editar animal</h1>
+      <p>Atualize informações, fotos e tags do animal que você cadastrou.</p>
+    </div>
+
+    <div class="container registration-grid">
+      <section class="upload-panel">
+        <div class="upload-card">
+          <h2>Foto principal</h2>
+          <div class="current-image-preview">
+            <img id="editCurrentImage" src="fotos_animais_mockups/dog1.jfif" alt="Foto atual do animal">
+          </div>
+          <label class="upload-dropzone" for="main-photo">
+            <input id="main-photo" type="file" accept="image/*">
+            <span class="upload-icon">📷</span>
+            <strong>Escolha uma nova foto principal</strong>
+            <small>Ou deixe em branco para manter a imagem atual.</small>
+          </label>
+        </div>
+        <div class="upload-card">
+          <h2>Fotos adicionais</h2>
+          <label class="upload-dropzone" for="additional-photos">
+            <input id="additional-photos" type="file" accept="image/*" multiple>
+            <span class="upload-icon">🖼️</span>
+            <strong>Fotos extras (opcional)</strong>
+            <small>Essas imagens não são salvas hoje, mas ajudam o doador a lembrar do animal.</small>
+          </label>
+        </div>
+      </section>
+
+      <section class="info-panel">
+        <form class="registration-form">
+          <div class="form-segment">
+            <h2>Informações do animal</h2>
+            <div class="label-group">
+              <label for="pet-name">Nome do animal</label>
+              <input id="pet-name" type="text" placeholder="Nome do pet">
+            </div>
+            <div class="label-group">
+              <label for="species">Espécie</label>
+              <select id="species">
+                <option>Gato</option>
+                <option>Cachorro</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="label-group">
+                <label for="age">Idade</label>
+                <input id="age" type="number" min="0" step="1" placeholder="Ex: 24 (meses)">
+              </div>
+              <div class="label-group">
+                <label for="gender">Sexo</label>
+                <select id="gender">
+                  <option>Fêmea</option>
+                  <option>Macho</option>
+                </select>
+              </div>
+            </div>
+            <div class="label-group">
+              <label for="size">Porte</label>
+              <select id="size">
+                <option>Pequeno</option>
+                <option>Médio</option>
+                <option>Grande</option>
+              </select>
+            </div>
+            <div class="label-group">
+              <label for="description">Descrição</label>
+              <textarea id="description" placeholder="Conte sobre o animal, comportamento e necessidades"></textarea>
+            </div>
+          </div>
+
+          <div class="form-segment">
+            <h2>Tags</h2>
+            <p>Use palavras-chave que destacam o animal para adotantes.</p>
+            <div class="tag-input-group">
+              <input id="tag-input" type="text" placeholder="Adicione uma tag e pressione Enter">
+              <button type="button" class="button button-secondary">Adicionar</button>
+            </div>
+            <div class="tag-list" aria-live="polite"></div>
+          </div>
+
+          <div class="form-actions registration-actions">
+            <button class="button button-primary" type="submit">Salvar alterações</button>
+            <button id="deleteAnimalButton" class="button button-danger" type="button">Excluir animal</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

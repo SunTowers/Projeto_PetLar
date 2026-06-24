@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Cadastro de Animal</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-intro">
+      <span class="eyebrow">Cadastro</span>
+      <h1>Cadastrar um animal</h1>
+      <p>Faça o registro completo do pet com fotos, características e tags para facilitar a adoção.</p>
+    </div>
+
+    <div class="container registration-grid">
+      <section class="upload-panel">
+        <div class="upload-card">
+          <h2>Foto principal</h2>
+          <label class="upload-dropzone" for="main-photo">
+            <input id="main-photo" type="file" accept="image/*">
+            <span class="upload-icon">📷</span>
+            <strong>Arraste e solte a foto principal aqui</strong>
+            <small>ou clique para selecionar um arquivo</small>
+          </label>
+        </div>
+        <div class="upload-card">
+          <h2>Fotos adicionais</h2>
+          <label class="upload-dropzone" for="additional-photos">
+            <input id="additional-photos" type="file" accept="image/*" multiple>
+            <span class="upload-icon">🖼️</span>
+            <strong>Adicione imagens extras</strong>
+            <small>Mostre diferentes ângulos, ambiente e personalidade.</small>
+          </label>
+        </div>
+      </section>
+
+      <section class="info-panel">
+        <form class="registration-form">
+          <div class="form-segment">
+            <h2>Informações do animal</h2>
+            <div class="label-group">
+              <label for="pet-name">Nome do animal</label>
+              <input id="pet-name" type="text" placeholder="Nome do pet">
+            </div>
+            <div class="label-group">
+              <label for="species">Espécie</label>
+              <select id="species">
+                <option>Gato</option>
+                <option>Cachorro</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="label-group">
+                <label for="age">Idade</label>
+                <input id="age" type="number" min="0" step="1" placeholder="Ex: 24 (meses)">
+              </div>
+              <div class="label-group">
+                <label for="gender">Sexo</label>
+                <select id="gender">
+                  <option>Fêmea</option>
+                  <option>Macho</option>
+                </select>
+              </div>
+            </div>
+            <div class="label-group">
+              <label for="size">Porte</label>
+              <select id="size">
+                <option>Pequeno</option>
+                <option>Médio</option>
+                <option>Grande</option>
+              </select>
+            </div>
+            <div class="label-group">
+              <label for="description">Descrição</label>
+              <textarea id="description" placeholder="Conte sobre o animal, comportamento e necessidades"></textarea>
+            </div>
+          </div>
+
+          <div class="form-segment">
+            <h2>Tags</h2>
+            <p>Use palavras-chave que destacam o animal para adotantes.</p>
+            <div class="tag-input-group">
+              <input id="tag-input" type="text" placeholder="Adicione uma tag e pressione Enter">
+              <button type="button" class="button button-secondary">Adicionar</button>
+            </div>
+            <div class="tag-list" aria-live="polite">
+              <span class="tag">Carinhoso</span>
+              <span class="tag">Calmo</span>
+              <span class="tag">Vacinas em dia</span>
+            </div>
+          </div>
+
+          <div class="form-actions registration-actions">
+            <button class="button button-primary" type="submit">Enviar Cadastro</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Adoção</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main detail-page">
+    <div class="container page-intro">
+      <span class="eyebrow">Adoção</span>
+      <h1>Formulário de adoção</h1>
+      <p>Preencha os dados abaixo para solicitar a adoção do animal selecionado. O animal será carregado automaticamente assim que o banco de dados estiver integrado.</p>
+    </div>
+
+    <div class="container adoption-grid">
+      <section class="adoption-summary">
+        <div class="detail-hero">
+          <img id="adoptionAnimalImage" src="fotos_animais_mockups/gato1.jfif" alt="Imagem do animal selecionado para adoção">
+        </div>
+
+        <div class="detail-panel">
+          <h2 class="detail-title" id="adoptionAnimalName">Luna</h2>
+          <p class="detail-subtitle" id="adoptionAnimalSubtitle">Gata · 2 anos · São Paulo, SP</p>
+          <div class="adoption-meta" id="adoptionAnimalMeta">
+            <span>Fêmea</span>
+            <span>Pequena</span>
+            <span>Vacinas em dia</span>
+          </div>
+        </div>
+
+        <div class="detail-panel">
+          <h3>Perfil do animal</h3>
+          <p id="adoptionAnimalDescription">Luna é uma gata doce e calma, que adora carinho e brincadeiras leves. Está castrada, vermifugada e pronta para morar em um lar tranquilo com pessoas atenciosas.</p>
+        </div>
+
+        <div class="adoption-note">
+          <p id="adoptionAnimalNote">A adoção será vinculada ao animal selecionado no próximo passo. Por enquanto, este é um layout de formulário para demonstrar o fluxo de adoção.</p>
+        </div>
+      </section>
+
+      <section class="adoption-form">
+        <div class="form-card" id="adoptionAuthSection">
+          <div class="auth-form">
+            <h2>Faça login para continuar</h2>
+            <p>Para adotar este animal, você precisa entrar na sua conta PetLar. Assim podemos salvar sua solicitação e facilitar o contato com o abrigo.</p>
+            <div class="form-actions">
+              <a class="button button-primary detail-action" href="user_login.html">Entrar</a>
+              <a class="button button-link" href="user_registration.html">Criar conta</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card hidden" id="adoptionRequestSection">
+          <div class="auth-form">
+            <h2>Solicitar adoção</h2>
+            <p>Você está logado. Envie a solicitação de adoção para começar o processo.</p>
+            <div class="form-actions">
+              <button class="button button-primary detail-action" id="requestAdoptionButton" type="button">Solicitar adoção</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

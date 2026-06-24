@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Cadastro</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-intro">
+      <span class="eyebrow">Registro</span>
+      <h1>Crie sua conta no PetLar</h1>
+      <p>Junte-se à comunidade que cuida, protege e adota animais com responsabilidade.</p>
+    </div>
+
+    <div class="container form-card">
+      <form class="auth-form">
+        <div class="label-group">
+          <label for="name">Nome completo</label>
+          <input id="name" type="text" placeholder="Digite seu nome">
+        </div>
+        <div class="label-group">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" placeholder="seu@email.com">
+        </div>
+        <div class="label-group">
+          <label for="password">Senha</label>
+          <input id="password" type="password" placeholder="Crie uma senha">
+        </div>
+
+        <section class="form-segment">
+          <h2>Contatos (opcional)</h2>
+          <p>Preencha apenas se quiser receber notificações ou confirmar dados de cadastro.</p>
+
+          <div class="label-group">
+            <label for="profilePhoto">Foto de perfil</label>
+            <input id="profilePhoto" name="profilePhoto" type="file" accept="image/*">
+          </div>
+
+          <div class="label-group">
+            <label for="phone">Telefone</label>
+            <input id="phone" type="tel" placeholder="(XX) XXXXX-XXXX">
+          </div>
+
+          <div class="form-row">
+            <div class="label-group">
+              <label for="country">País</label>
+              <input id="country" type="text" placeholder="Brasil">
+            </div>
+            <div class="label-group">
+              <label for="state">Estado</label>
+              <input id="state" type="text" placeholder="SP">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="label-group">
+              <label for="city">Cidade</label>
+              <input id="city" type="text" placeholder="São Paulo">
+            </div>
+            <div class="label-group">
+              <label for="zip">CEP</label>
+              <input id="zip" type="text" placeholder="01234-567">
+            </div>
+          </div>
+
+          <div class="label-group">
+            <label for="street">Rua e número</label>
+            <input id="street" type="text" placeholder="Rua Exemplo, 123">
+          </div>
+
+          <div class="label-group">
+            <label for="apartment-unit">Apto / Unidade</label>
+            <input id="apartment-unit" type="text" placeholder="Apto 101">
+          </div>
+        </section>
+
+        <label class="terms-consent" for="termsConsent">
+          <input id="termsConsent" type="checkbox" required>
+          <span class="terms-consent-text">Ao criar sua conta, você concorda com os <a href="termos_servicos.html">Termos e Serviços</a> do PetLar.</span>
+        </label>
+
+        <div class="form-actions">
+          <button class="button button-primary" type="submit">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

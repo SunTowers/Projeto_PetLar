@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Denunciar Maus-Tratos</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-intro">
+      <span class="eyebrow">Proteção</span>
+      <h1>Denuncie abusos com segurança</h1>
+      <p>Ajude a proteger animais em situação de risco. Sua denúncia faz a diferença.</p>
+    </div>
+
+    <div class="container section-block">
+      <div class="alert-panel alert-emergency">
+        <h3>Em casos de emergência</h3>
+        <p>Entre em contato imediatamente com as autoridades locais antes de registrar a denúncia aqui.</p>
+        <div class="alert-list">
+          <span>Polícia Ambiental: <strong>190</strong></span>
+          <span>Corpo de Bombeiros: <strong>193</strong></span>
+        </div>
+      </div>
+      <div class="alert-panel alert-warning">
+        <h3>Denúncias falsas ou fraudulentas</h3>
+        <p>Evite informações incorretas ou denúncia de má-fé. Denúncias verdadeiras ajudam os animais; falsas denúncias podem prejudicar equipes de resgate e atrasar a proteção.</p>
+      </div>
+      <section class="report-form-panel">
+        <div class="report-form-header">
+          <span class="eyebrow">Formulário</span>
+          <h2>Informe os detalhes do caso</h2>
+          <p>Preencha os campos abaixo com o máximo de informações. Quanto mais completo, mais rápido sua denúncia poderá ser apurada.</p>
+        </div>
+        <form class="report-form">
+          <div class="report-grid">
+            <div class="label-group">
+              <label for="report-name">Seu nome</label>
+              <input id="report-name" type="text" placeholder="Nome completo">
+            </div>
+            <div class="label-group">
+              <label for="report-email">E-mail</label>
+              <input id="report-email" type="email" placeholder="seu@email.com">
+            </div>
+            <div class="label-group">
+              <label for="report-phone">Telefone</label>
+              <input id="report-phone" type="tel" placeholder="(XX) XXXXX-XXXX">
+            </div>
+            <div class="label-group">
+              <label for="report-location">Local do caso</label>
+              <input id="report-location" type="text" placeholder="Cidade, bairro ou endereço aproximado">
+            </div>
+            <div class="label-group">
+              <label for="report-date">Data observada</label>
+              <input id="report-date" type="date">
+            </div>
+            <div class="label-group">
+              <label for="report-type">Tipo de situação</label>
+              <select id="report-type">
+                <option>Abandono</option>
+                <option>Negligência</option>
+                <option>Agressão física</option>
+                <option>Condições inadequadas</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="label-group">
+            <label for="report-details">Detalhes da denúncia</label>
+            <textarea id="report-details" placeholder="Descreva o caso com o máximo de informações possível"></textarea>
+          </div>
+          <div class="form-actions report-form-actions">
+            <button class="button button-primary" type="submit">Enviar Denúncia</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

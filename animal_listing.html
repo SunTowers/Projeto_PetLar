@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Animais</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-intro">
+      <span class="eyebrow">Animais</span>
+      <h1>Conheça os pets disponíveis</h1>
+      <p>Veja os animais que precisam de um lar amoroso. Encontre seu companheiro ideal.</p>
+      <div class="page-intro-actions">
+        <a class="button button-primary" href="animal_registration.html">Cadastrar animal para adoção</a>
+      </div>
+    </div>
+
+    <section class="container filter-panel" aria-label="Filtros de animais">
+      <div class="filter-grid">
+        <div class="label-group filter-group">
+          <label for="filterSpecies">Espécie</label>
+          <select id="filterSpecies">
+            <option value="">Todas</option>
+            <option value="Gato">Gato</option>
+            <option value="Cachorro">Cachorro</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+        <div class="label-group filter-group">
+          <label for="filterAge">Idade</label>
+          <select id="filterAge">
+            <option value="">Todas</option>
+            <option value="0-6">0 a 6 meses</option>
+            <option value="7-12">7 a 12 meses</option>
+            <option value="13-36">1 a 3 anos</option>
+            <option value="37+">Acima de 3 anos</option>
+          </select>
+        </div>
+        <div class="label-group filter-group">
+          <label for="filterGender">Sexo</label>
+          <select id="filterGender">
+            <option value="">Todos</option>
+            <option value="Fêmea">Fêmea</option>
+            <option value="Macho">Macho</option>
+          </select>
+        </div>
+        <div class="label-group filter-group">
+          <label for="filterSize">Porte</label>
+          <select id="filterSize">
+            <option value="">Todos</option>
+            <option value="Pequeno">Pequeno</option>
+            <option value="Médio">Médio</option>
+            <option value="Grande">Grande</option>
+          </select>
+        </div>
+        <div class="label-group filter-group filter-city">
+          <label for="filterCity">Localização por cidade</label>
+          <input id="filterCity" type="text" placeholder="Ex: Curitiba">
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button class="button button-secondary" id="clearFiltersButton" type="button">Limpar filtros</button>
+        <p class="filter-summary" id="filterSummary">Mostrando todos os animais disponíveis.</p>
+      </div>
+    </section>
+
+    <div class="container cards-grid" id="animalCards" aria-live="polite"></div>
+    <div class="container">
+      <div class="loader" id="loadingIndicator" role="status" aria-live="polite">
+        <span></span>
+        Carregando mais pets…
+      </div>
+      <div id="scrollTrigger"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>

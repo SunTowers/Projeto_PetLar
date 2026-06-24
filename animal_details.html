@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetLar - Detalhes do Animal</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js?v=3" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="home.html">PetLar</a>
+      <nav class="site-nav">
+        <a href="animal_listing.html">Animais</a>
+      </nav>
+      <div class="actions">
+        <a class="button button-link" href="user_login.html">Entrar</a>
+        <a class="button button-primary" href="user_registration.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main detail-page">
+    <div class="container detail-grid">
+      <section class="detail-gallery">
+        <div class="detail-hero">
+          <img id="detailHeroImage" src="" alt="Imagem do animal selecionado">
+        </div>
+        <div class="detail-thumbs" id="detailThumbs">
+          <!-- Thumbnails will be populated from the animal registration data -->
+        </div>
+      </section>
+
+      <section class="detail-summary">
+        <div class="detail-header">
+          <div>
+            <h1 class="detail-title" id="animalDetailTitle"></h1>
+            <p class="detail-subtitle" id="animalDetailSubtitle"></p>
+            <p class="detail-location" id="animalDetailLocation"></p>
+          </div>
+          <button class="icon-button" type="button" aria-label="Favoritar animal">♥</button>
+        </div>
+
+        <div class="status-grid">
+          <article class="status-card">
+            <span>Idade</span>
+            <strong id="animalDetailAge"></strong>
+          </article>
+          <article class="status-card">
+            <span>Porte</span>
+            <strong id="animalDetailSize"></strong>
+          </article>
+          <article class="status-card">
+            <span>Sexo</span>
+            <strong id="animalDetailGender"></strong>
+          </article>
+        </div>
+
+        <div class="health-panel detail-panel">
+          <h3>Status de Saúde</h3>
+          <div class="health-tags" id="animalHealthTags">
+            <!-- Health tags will be populated from the animal registration -->
+          </div>
+        </div>
+
+        <div class="detail-panel">
+          <h3>Sobre o animal</h3>
+          <p id="animalDetailDescription"></p>
+        </div>
+
+        <div class="detail-panel contact-panel">
+          <h3>Informações de Contato</h3>
+          <div class="contact-item">
+            <span>🏢</span>
+            <div><strong>Nome:</strong> <span id="ownerName">Não disponível</span></div>
+          </div>
+          <div class="contact-item">
+            <span>📞</span>
+            <div><strong>Telefone:</strong> <span id="ownerPhone">Não disponível</span></div>
+          </div>
+          <div class="contact-item">
+            <span>✉️</span>
+            <div><strong>E-mail:</strong> <span id="ownerEmail">Não disponível</span></div>
+          </div>
+        </div>
+
+        <a href="animal_adoption.html" id="adoptAnimalButton" class="button button-primary detail-action">Quero Adotar</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PetLar © 2026. Amor e cuidado para todos os animais.</p>
+    </div>
+  </footer>
+</body>
+</html>
