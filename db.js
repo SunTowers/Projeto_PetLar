@@ -5,8 +5,17 @@ function isTruthy(value) {
   return ['1', 'true', 'yes', 'on'].includes(String(value || '').toLowerCase());
 }
 
+function parseFamily(value) {
+  const parsed = Number(value);
+  if (parsed === 4 || parsed === 6) {
+    return parsed;
+  }
+  return undefined;
+}
+
 const databaseUrl = process.env.DATABASE_URL || process.env.PG_CONNECTION_STRING || '';
 const useSsl = isTruthy(process.env.PG_SSL) || isTruthy(process.env.DATABASE_SSL);
+const ipFamily = parseFamily(process.env.PG_FAMILY);
 
 const pool = new Pool({
   ...(databaseUrl ? { connectionString: databaseUrl } : {
@@ -16,6 +25,7 @@ const pool = new Pool({
     password: process.env.PG_PASSWORD || '',
     database: process.env.PG_DATABASE || 'petlar_db'
   }),
+  ...(ipFamily ? { family: ipFamily } : {}),
   ...(useSsl ? { ssl: { rejectUnauthorized: false } } : {})
 });
 
