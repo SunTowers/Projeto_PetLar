@@ -1,4 +1,5 @@
 
+const dns = require('dns');
 const { Pool } = require('pg');
 
 function isTruthy(value) {
@@ -17,6 +18,19 @@ const databaseUrl = process.env.DATABASE_URL || process.env.PG_CONNECTION_STRING
 const useSsl = isTruthy(process.env.PG_SSL) || isTruthy(process.env.DATABASE_SSL);
 const ipFamily = parseFamily(process.env.PG_FAMILY);
 
+function buildLookup(family) {
+  if (!family) {
+    return undefined;
+  }
+
+  return (hostname, options, callback) => {
+    const resolvedCallback = typeof options === 'function' ? options : callback;
+    return dns.lookup(hostname, { family, all: false, hints: dns.ADDRCONFIG }, resolvedCallback);
+  };
+}
+
+const forcedLookup = buildLookup(ipFamily);
+
 const pool = new Pool({
   ...(databaseUrl ? { connectionString: databaseUrl } : {
     host: process.env.PG_HOST || 'localhost',
@@ -26,6 +40,7 @@ const pool = new Pool({
     database: process.env.PG_DATABASE || 'petlar_db'
   }),
   ...(ipFamily ? { family: ipFamily } : {}),
+  ...(forcedLookup ? { lookup: forcedLookup } : {}),
   ...(useSsl ? { ssl: { rejectUnauthorized: false } } : {})
 });
 
