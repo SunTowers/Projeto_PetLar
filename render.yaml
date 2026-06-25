@@ -17,3 +17,5 @@ services:
         sync: false
       - key: PG_SSL
         sync: false
+      - key: UPLOAD_DIR
+        sync: false

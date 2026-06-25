@@ -1,5 +1,6 @@
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'replace-with-a-secure-secret';
 const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
 const ADMIN_BOOTSTRAP_KEY = process.env.ADMIN_BOOTSTRAP_KEY || '';
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, 'uploads');
 
 if (!process.env.JWT_SECRET) {
   console.warn('WARNING: JWT_SECRET is not defined in .env; the default secret is insecure for production.');
@@ -36,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 const upload = multer({
-  dest: path.join(__dirname, 'uploads'),
+  dest: UPLOAD_DIR,
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (file.mimetype && file.mimetype.startsWith('image/')) {
@@ -47,7 +49,8 @@ const upload = multer({
   }
 });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+app.use('/uploads', express.static(UPLOAD_DIR));
 app.get('/', (req, res) => {
   res.redirect('/home.html');
 });
