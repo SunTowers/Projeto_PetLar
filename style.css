@@ -449,6 +449,12 @@ button {
   align-items: stretch;
 }
 
+.cards-grid .card {
+  width: 100%;
+  max-width: 420px;
+  justify-self: center;
+}
+
 .dashboard-grid {
   display: grid;
   gap: 24px;
