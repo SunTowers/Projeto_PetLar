@@ -487,6 +487,21 @@ function getAnimalImageUrl(animal, fallback = '/fotos_animais_mockups/dog1.jfif'
   return resolveAssetUrl(candidate) || fallback;
 }
 
+function withImageFallback(imgElement, fallback = '/fotos_animais_mockups/dog1.jfif') {
+  if (!imgElement) {
+    return;
+  }
+
+  const fallbackUrl = resolveAssetUrl(fallback) || fallback;
+  imgElement.addEventListener('error', () => {
+    if (imgElement.dataset.fallbackApplied === '1') {
+      return;
+    }
+    imgElement.dataset.fallbackApplied = '1';
+    imgElement.src = fallbackUrl;
+  });
+}
+
 async function apiFetch(url, options = {}) {
   const requestOptions = { ...options, headers: { ...(options.headers || {}) } };
 
@@ -567,16 +582,21 @@ function renderAnimalDetails(animal) {
   thumbsContainer.innerHTML = '';
 
   const images = [];
-  if (animal.image_url) images.push(animal.image_url);
-  if (animal.image && !images.includes(animal.image)) images.push(animal.image);
+  if (animal.image_url) images.push(resolveAssetUrl(animal.image_url));
+  if (animal.image) {
+    const normalized = resolveAssetUrl(animal.image);
+    if (normalized && !images.includes(normalized)) images.push(normalized);
+  }
   if (Array.isArray(animal.images)) {
     for (const img of animal.images) {
-      if (img && !images.includes(img)) images.push(img);
+      const normalized = resolveAssetUrl(img);
+      if (normalized && !images.includes(normalized)) images.push(normalized);
     }
   }
 
-  const heroSrc = images[0] || 'fotos_animais_mockups/gato1.jfif';
+  const heroSrc = images[0] || resolveAssetUrl('/fotos_animais_mockups/gato1.jfif');
   image.src = heroSrc;
+  withImageFallback(image, '/fotos_animais_mockups/gato1.jfif');
   image.alt = `Foto de ${animal.name || 'animal'}`;
   title.textContent = animal.name || 'Nome não disponível';
   subtitle.textContent = `${animal.type || 'Espécie não informada'} · ${animal.species || ''}`.trim();
@@ -600,6 +620,7 @@ function renderAnimalDetails(animal) {
       thumbWrap.className = 'detail-thumb';
       const imgEl = document.createElement('img');
       imgEl.src = images[i];
+      withImageFallback(imgEl, '/fotos_animais_mockups/gato1.jfif');
       imgEl.alt = `${animal.name || 'animal'} - miniatura ${i + 1}`;
       imgEl.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -688,6 +709,7 @@ function renderAdoptionDetails(animal) {
   }
 
   image.src = getAnimalImageUrl(animal, '/fotos_animais_mockups/gato1.jfif');
+  withImageFallback(image, '/fotos_animais_mockups/gato1.jfif');
   image.alt = `Foto de ${animal.name}`;
   name.textContent = animal.name || 'Animal desconhecido';
   subtitle.textContent = `${animal.type || 'Animal'} · ${getAnimalAgeLabel(animal)} · ${animal.location || 'Local não informado'}`;
@@ -745,6 +767,9 @@ function createUserAnimalCard(animal) {
       </div>
     </div>
   `;
+
+  const cardImage = article.querySelector('.card-image');
+  withImageFallback(cardImage, '/fotos_animais_mockups/dog1.jfif');
 
   const actions = article.querySelector('.card-actions');
   if (actions) {
@@ -827,6 +852,9 @@ function createRequestCard(request, isReceivedRequest) {
       </div>
     </div>
   `;
+
+  const cardImage = article.querySelector('.card-image');
+  withImageFallback(cardImage, '/fotos_animais_mockups/dog1.jfif');
 
   const actions = article.querySelector('.card-actions');
   if (actions && isReceivedRequest && request.status === 'pending') {
@@ -922,6 +950,9 @@ function createPublicationHistoryCard(animal) {
     </div>
   `;
 
+  const cardImage = article.querySelector('.card-image');
+  withImageFallback(cardImage, '/fotos_animais_mockups/dog1.jfif');
+
   return article;
 }
 
@@ -990,6 +1021,9 @@ function createAdminUserCard(user) {
       </div>
     </div>
   `;
+
+  const cardImage = article.querySelector('.card-image');
+  withImageFallback(cardImage, '/fotos_animais_mockups/dog1.jfif');
 
   const roleButton = article.querySelector('.admin-role-button');
   const suspendButton = article.querySelector('.admin-suspend-button');
