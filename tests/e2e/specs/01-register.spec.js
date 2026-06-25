@@ -25,10 +25,7 @@ test.describe('Cenário 1 — Cadastro de usuário', () => {
     await page.check('#termsConsent');
 
     await page.click('button[type="submit"]');
-
-    // After successful registration the app redirects or shows a success signal.
-    // We accept either a redirect away from the registration page OR the page URL changing.
-    await expect(page).not.toHaveURL(/user_registration\.html/, { timeout: 8000 });
+    await expect(page).toHaveURL(/user_login\.html/, { timeout: 8000 });
   });
 
   test('exibe erro ao tentar cadastrar e-mail já existente', async ({ page, request }) => {

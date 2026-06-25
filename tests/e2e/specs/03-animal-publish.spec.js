@@ -22,7 +22,11 @@ test.describe('Cenário 3 — Publicação de animal', () => {
     await page.fill('#email-login', user.email);
     await page.fill('#password-login', user.password);
     await page.click('button[type="submit"]');
-    await page.waitForURL((url) => !url.pathname.includes('user_login'), { timeout: 8000 });
+    await expect
+      .poll(async () => page.evaluate(() => window.localStorage.getItem('petlar_token')), {
+        timeout: 8000,
+      })
+      .not.toBeNull();
   }
 
   test('exibe o formulário de cadastro de animal', async ({ page }) => {
@@ -80,16 +84,18 @@ test.describe('Cenário 3 — Publicação de animal', () => {
     });
 
     await page.goto('/animal_listing.html');
-    await page.waitForSelector('.animal-card, .listing-grid article', { timeout: 8000 });
-
-    const pageContent = await page.content();
-    expect(pageContent).toContain(`Listagem E2E ${RUN_ID}`);
+    await expect
+      .poll(async () => {
+        const html = await page.content();
+        return html.includes(`Listagem E2E ${RUN_ID}`);
+      }, { timeout: 12000 })
+      .toBe(true);
   });
 
   test('redireciona para login quando não autenticado tenta publicar', async ({ page }) => {
     // Ensure not logged in.
-    await page.goto('/user_login.html');
-    await page.evaluate(() => localStorage.clear());
+    await page.goto('/home.html');
+    await page.evaluate(() => window.localStorage.clear());
 
     await page.goto('/animal_registration.html');
 

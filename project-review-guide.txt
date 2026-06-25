@@ -1,0 +1,62 @@
+Guia Rápido para Revisão do Projeto PetLar
+
+Objetivo
+Este arquivo resume onde estão a lógica de negócio, os testes e as configurações principais.
+
+Pastas principais
+
+1) tests/
+- Contém toda a suíte de testes automatizados.
+- tests/backend/: testes de backend (unitários e integração).
+- tests/e2e/: testes end-to-end com Playwright.
+- Se você quiser validar regras de negócio por cenários, comece por esta pasta.
+
+2) uploads/
+- Armazena arquivos enviados pela aplicação (principalmente imagens).
+- Em ambiente de produção, o conteúdo pode variar conforme persistência do servidor.
+
+3) fotos_animais_mockups/
+- Imagens estáticas de exemplo usadas como mock/fallback visual no frontend.
+
+Arquivos de lógica de negócio (raiz do projeto)
+
+1) server.js
+- Define rotas HTTP, autenticação/autorização e fluxo principal da API.
+- É o principal ponto de entrada da lógica de aplicação no backend.
+
+2) db.js
+- Camada de acesso a dados e inicialização/migração de schema.
+- Concentra queries e operações de persistência no PostgreSQL.
+
+3) script.js
+- Lógica de frontend no navegador.
+- Regras de interação das páginas, chamadas para API e renderização dinâmica.
+
+4) style.css
+- Estilos globais da interface.
+
+Arquivos de configuração importantes
+
+1) package.json
+- Scripts de execução e testes (npm start, test:backend, test:e2e etc.).
+
+2) vitest.config.mjs
+- Configuração da suíte de testes backend (Vitest).
+
+3) playwright.config.js
+- Configuração da suíte E2E (Playwright).
+
+4) .env / .env.test / .env.example
+- Variáveis de ambiente para execução local e testes.
+
+5) render.yaml
+- Configuração de deploy para Render.
+
+6) README.md
+- Documentação geral de uso e contexto do projeto.
+
+Sugestão de leitura para revisão
+1. server.js e db.js (entender regra de negócio e persistência).
+2. tests/backend/ (validar cobertura dos cenários de backend).
+3. tests/e2e/ (validar fluxo funcional ponta a ponta).
+4. playwright.config.js e vitest.config.mjs (entender como os testes rodam).

@@ -3,8 +3,9 @@
  * Uses a real test PostgreSQL database.
  */
 import { describe, test, expect, beforeEach } from 'vitest';
+import jwt from 'jsonwebtoken';
 import { app } from '../../../server.js';
-import { USERS, ANIMALS } from '../fixtures/index.js';
+import { ANIMALS } from '../fixtures/index.js';
 import {
   createAuthenticatedUser,
   createAnimal,
@@ -17,9 +18,8 @@ import {
   adminGetMetrics,
   adminGetAdoptionRequests,
   registerUser,
-  loginUser,
 } from '../helpers/api.js';
-import { promoteToAdmin, getUserByEmail } from '../helpers/db.js';
+import { promoteToAdmin } from '../helpers/db.js';
 
 // ─── Tokens re-created before each test ──────────────────────────────────────
 let regularToken;
@@ -27,26 +27,57 @@ let adminToken;
 let adminUserId;
 let regularUserId;
 
-beforeEach(async () => {
-  // Regular user (alice)
-  const aliceRes = await registerUser(app, USERS.alice);
-  regularUserId = aliceRes.body.data.user.id;
-  const aliceLogin = await loginUser(app, { email: USERS.alice.email, password: USERS.alice.password });
-  regularToken = aliceLogin.body.data.token;
+function issueTestToken(user) {
+  const secret = process.env.JWT_SECRET || 'test-jwt-secret-do-not-use-in-production';
+  return jwt.sign(
+    { id: user.id, email: user.email, role: user.role },
+    secret,
+    { expiresIn: '2h' }
+  );
+}
 
-  // Admin user (admin fixture) — registered, then promoted directly in DB
-  const adminRes = await registerUser(app, USERS.admin);
+async function seedAdminUsers() {
+  // Use unique emails per test execution to avoid rare collisions.
+  const unique = `${Date.now()}-${Math.floor(Math.random() * 1_000_000)}`;
+  const A_REGULAR = {
+    name: 'Admin Regular',
+    email: `admin-test-regular-${unique}@petlar-test.example`,
+    password: 'RegPass123!'
+  };
+  const A_ADMIN = {
+    name: 'Admin Tester',
+    email: `admin-test-admin-${unique}@petlar-test.example`,
+    password: 'AdminPass000!'
+  };
+
+  const aliceRes = await registerUser(app, A_REGULAR);
+  expect(aliceRes.status).toBe(201);
+  regularUserId = aliceRes.body.data.user.id;
+  regularToken = issueTestToken({
+    id: regularUserId,
+    email: A_REGULAR.email,
+    role: 'user'
+  });
+
+  const adminRes = await registerUser(app, A_ADMIN);
+  expect(adminRes.status).toBe(201);
   adminUserId = adminRes.body.data.user.id;
+
   await promoteToAdmin(adminUserId);
-  const adminLogin = await loginUser(app, { email: USERS.admin.email, password: USERS.admin.password });
-  adminToken = adminLogin.body.data.token;
-});
+  adminToken = issueTestToken({
+    id: adminUserId,
+    email: A_ADMIN.email,
+    role: 'admin'
+  });
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Cenário 11 — Controle de acesso administrativo
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('Cenário 11 — Controle de acesso: bloqueio de usuário comum', () => {
+  beforeEach(seedAdminUsers);
+
   test('GET /api/admin/users retorna 403 para usuário comum', async () => {
     const res = await adminGetUsers(app, regularToken);
     expect(res.status).toBe(403);
@@ -79,6 +110,8 @@ describe('Cenário 11 — Controle de acesso: bloqueio de usuário comum', () =>
 });
 
 describe('Cenário 11 — Controle de acesso: permissões de administrador', () => {
+  beforeEach(seedAdminUsers);
+
   test('admin consegue listar todos os usuários', async () => {
     const res = await adminGetUsers(app, adminToken);
 
@@ -96,7 +129,7 @@ describe('Cenário 11 — Controle de acesso: permissões de administrador', () 
 
   test('admin consegue rebaixar outro admin para usuário comum', async () => {
     // Criar segundo admin para não ficar sem admins
-    const secondAdminRes = await registerUser(app, USERS.bob);
+    const secondAdminRes = await registerUser(app, { name: 'Second Admin', email: 'admin-test-second@petlar-test.example', password: 'SecondPass!' });
     await promoteToAdmin(secondAdminRes.body.data.user.id);
     const aliceAdminRes = await adminSetRole(app, adminToken, regularUserId, 'admin');
     expect(aliceAdminRes.status).toBe(200);
@@ -135,7 +168,7 @@ describe('Cenário 11 — Controle de acesso: permissões de administrador', () 
   });
 
   test('admin consegue ocultar anúncio de animal', async () => {
-    const bobToken = await createAuthenticatedUser(app, USERS.bob);
+    const bobToken = await createAuthenticatedUser(app, { name: 'Anm Donor 1', email: 'admin-test-donor1@petlar-test.example', password: 'Donor1Pass!' });
     const animalRes = await createAnimal(app, bobToken, ANIMALS.dog);
     const animalId = animalRes.body.data.animal.id;
 
@@ -147,7 +180,7 @@ describe('Cenário 11 — Controle de acesso: permissões de administrador', () 
   });
 
   test('admin consegue reexibir anúncio oculto', async () => {
-    const bobToken = await createAuthenticatedUser(app, USERS.bob);
+    const bobToken = await createAuthenticatedUser(app, { name: 'Anm Donor 2', email: 'admin-test-donor2@petlar-test.example', password: 'Donor2Pass!' });
     const animalRes = await createAnimal(app, bobToken, ANIMALS.dog);
     const animalId = animalRes.body.data.animal.id;
 

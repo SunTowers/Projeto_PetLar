@@ -4,11 +4,8 @@ const { config } = require('dotenv');
 
 config({ path: '.env.test' });
 
-const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3001';
-const serverPort = process.env.TEST_SERVER_PORT || '3001';
-const testDbUrl =
-  process.env.TEST_DATABASE_URL ||
-  'postgresql://petlar_user:petlar_password@localhost:5432/petlar_test';
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000';
+const serverPort = process.env.TEST_SERVER_PORT || '3000';
 
 module.exports = defineConfig({
   testDir: './tests/e2e/specs',
@@ -34,8 +31,6 @@ module.exports = defineConfig({
     trace: 'retain-on-failure',
   },
 
-  globalSetup: './tests/e2e/global-setup.js',
-
   projects: [
     {
       name: 'chromium',
@@ -44,10 +39,10 @@ module.exports = defineConfig({
   ],
 
   webServer: {
-    command: `cross-env PORT=${serverPort} NODE_ENV=test DATABASE_URL="${testDbUrl}" JWT_SECRET=test-jwt-secret-do-not-use-in-production PG_SSL=false node server.js`,
+    command: `cross-env PORT=${serverPort} NODE_ENV=test JWT_SECRET=test-jwt-secret-do-not-use-in-production TEST_EMBEDDED_PG_PORT=25432 node tests/e2e/start-webserver.js`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
-    timeout: 30_000,
+    timeout: 90_000,
     stdout: 'pipe',
     stderr: 'pipe',
   },

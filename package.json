@@ -35,6 +35,7 @@
     "@playwright/test": "^1.61.1",
     "@vitest/coverage-v8": "^1.6.1",
     "cross-env": "^7.0.3",
+    "embedded-postgres": "^18.4.0-beta.17",
     "supertest": "^7.2.2",
     "vitest": "^1.6.1"
   }

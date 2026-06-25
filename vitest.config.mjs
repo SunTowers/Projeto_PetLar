@@ -1,20 +1,16 @@
 import { defineConfig } from 'vitest/config';
-import { config } from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Load test env vars into the config process so they're available for the env block below.
-config({ path: join(__dirname, '.env.test') });
-
-const testDatabaseUrl =
-  process.env.TEST_DATABASE_URL ||
-  'postgresql://petlar_user:petlar_password@localhost:5432/petlar_test';
+// Dedicated port for the embedded PostgreSQL test server.
+// globalSetup will start an embedded PG instance on this exact port.
+// Workers read DATABASE_URL from env below — both point to the same instance.
+const EMBEDDED_PG_PORT = 25432;
+const EMBEDDED_PG_URL = `postgresql://petlar_test_user:petlar_test_pass@localhost:${EMBEDDED_PG_PORT}/petlar_test`;
 
 export default defineConfig({
   test: {
     environment: 'node',
+    fileParallelism: false,
+    maxConcurrency: 1,
 
     // Backend integration + unit tests only.
     include: ['tests/backend/**/*.test.js'],
@@ -50,12 +46,14 @@ export default defineConfig({
       },
     },
 
-    // These env vars are injected into every worker process BEFORE any module loads.
+    // Injected into every worker BEFORE any module loads.
+    // Workers always connect to the embedded PG instance started by globalSetup.
     env: {
       NODE_ENV: 'test',
       JWT_SECRET: 'test-jwt-secret-do-not-use-in-production',
-      DATABASE_URL: testDatabaseUrl,
+      DATABASE_URL: EMBEDDED_PG_URL,
       PG_SSL: 'false',
+      PG_FAMILY: '4',
       PORT: '0',
     },
   },

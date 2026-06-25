@@ -1,0 +1,74 @@
+Projeto PetLar
++-- tests
+|   +-- backend
+|   |   +-- fixtures
+|   |   |   \-- index.js
+|   |   +-- helpers
+|   |   |   +-- api.js
+|   |   |   \-- db.js
+|   |   +-- integration
+|   |   |   +-- admin.test.js
+|   |   |   +-- adoption.test.js
+|   |   |   +-- animals.test.js
+|   |   |   \-- auth.test.js
+|   |   +-- setup
+|   |   |   +-- global-setup.js
+|   |   |   \-- per-test-setup.js
+|   |   \-- unit
+|   |       \-- auth-middleware.test.js
+|   \-- e2e
+|       +-- helpers
+|       |   \-- api.js
+|       +-- specs
+|       |   +-- 01-register.spec.js
+|       |   +-- 02-login.spec.js
+|       |   +-- 03-animal-publish.spec.js
+|       |   +-- 04-adoption-flow.spec.js
+|       |   \-- 05-admin-control.spec.js
+|       +-- global-setup.js
+|       \-- start-webserver.js
++-- uploads
+|   +-- 2694914eebf335d26f67e43ee99a32ac
+|   +-- 32fdc0fc1784a0ae719ff73358f4c708
+|   +-- 76bec562cc0ed0f7cd9523a822eba8d2
+|   +-- 7d84131267029a54023525c2dbf5d16e
+|   +-- 986415a265d57a3fe74be0bcfb1470c8
+|   +-- e886da3704e8d5f081ffbf95d728c5c5
+|   \-- fde2941c2a67ec9976c02819d1d69984
++-- .env
++-- .env.example
++-- .env.test
++-- .gitignore
++-- admin_panel.html
++-- admin-debug.txt
++-- animal_adoption.html
++-- animal_details.html
++-- animal_edit.html
++-- animal_listing.html
++-- animal_registration.html
++-- db.js
++-- detalhes_desing.png
++-- home.html
++-- LICENSE
++-- manage_animals.html
++-- package-lock.json
++-- package.json
++-- petlar_style.png
++-- playwright.config.js
++-- project-structure-tree.txt
++-- README.md
++-- render.yaml
++-- report_animal_abuse.html
++-- report-backend-english-locale.txt
++-- report-e2e-english-locale.txt
++-- script.js
++-- server.js
++-- style.css
++-- termos_servicos.html
++-- test-e2e-result.txt
++-- user_login.html
++-- user_options.html
++-- user_registration.html
++-- vaccination_campaigns.html
++-- vitest.config.mjs
+\-- vitest.unit.config.mjs

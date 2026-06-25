@@ -1,5 +1,8 @@
 .env
 node_modules/
+.test-db-url
+coverage/
+tmp/
 uploads/
 npm-debug.log*
 *.log

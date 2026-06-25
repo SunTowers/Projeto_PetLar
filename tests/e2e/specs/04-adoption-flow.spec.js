@@ -42,9 +42,9 @@ test.describe('Cenários 4-10 — Fluxo completo de adoção', () => {
   test('Cenário 4 — adotante logado vê botão "Quero Adotar" na página do animal', async ({ page }) => {
     // Log adopter in via localStorage injection (faster than UI login).
     await page.goto('/home.html');
-    await page.evaluate((token) => localStorage.setItem('token', token), adopterToken);
+    await page.evaluate((token) => window.localStorage.setItem('petlar_token', token), adopterToken);
 
-    await page.goto(`/animal_details.html?id=${testAnimalId}`);
+    await page.goto(`/animal_details.html?animalId=${testAnimalId}`);
     await page.waitForTimeout(2000);
 
     const adoptBtn = page.locator('#adoptAnimalButton');
@@ -53,14 +53,15 @@ test.describe('Cenários 4-10 — Fluxo completo de adoção', () => {
 
   test('Cenário 4 — adotante consegue solicitar adoção na página de adoção', async ({ page }) => {
     await page.goto('/home.html');
-    await page.evaluate((token) => localStorage.setItem('token', token), adopterToken);
+    await page.evaluate((token) => window.localStorage.setItem('petlar_token', token), adopterToken);
 
-    await page.goto(`/animal_adoption.html?id=${testAnimalId}`);
+    await page.goto(`/animal_adoption.html?animalId=${testAnimalId}`);
     await page.waitForTimeout(2000);
 
     // The page should show the "Solicitar adoção" button for logged-in users.
     const requestSection = page.locator('#adoptionRequestSection');
-    await expect(requestSection).not.toHaveClass(/hidden/, { timeout: 5000 });
+    await expect(requestSection).toBeVisible({ timeout: 8000 });
+    await expect(page.locator('#requestAdoptionButton')).toBeVisible({ timeout: 8000 });
 
     page.on('dialog', async (dialog) => {
       expect(dialog.message()).toMatch(/sucesso|solicitaç/i);

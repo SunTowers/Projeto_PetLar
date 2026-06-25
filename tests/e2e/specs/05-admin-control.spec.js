@@ -85,7 +85,8 @@ test.describe('Cenário 11 — Controle de acesso administrativo', () => {
   });
 
   test('painel admin exibe aviso ao acessar sem autenticação', async ({ page }) => {
-    await page.evaluate(() => localStorage.clear());
+    await page.goto('/home.html');
+    await page.evaluate(() => window.localStorage.clear());
     await page.goto('/admin_panel.html');
     await page.waitForTimeout(2000);
 
