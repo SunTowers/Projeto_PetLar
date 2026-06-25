@@ -675,13 +675,17 @@ app.use((err, req, res, next) => {
   return sendError(res, 500, 'Erro interno do servidor.');
 });
 
-initDb()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`PetLar server is running on http://localhost:${PORT}`);
+if (require.main === module) {
+  initDb()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`PetLar server is running on http://localhost:${PORT}`);
+      });
+    })
+    .catch((error) => {
+      console.error('Não foi possível inicializar o banco de dados.', error);
+      process.exit(1);
     });
-  })
-  .catch((error) => {
-    console.error('Não foi possível inicializar o banco de dados.', error);
-    process.exit(1);
-  });
+}
+
+module.exports = { app, initDb };
