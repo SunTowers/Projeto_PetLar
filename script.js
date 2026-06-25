@@ -493,13 +493,22 @@ function withImageFallback(imgElement, fallback = '/fotos_animais_mockups/dog1.j
   }
 
   const fallbackUrl = resolveAssetUrl(fallback) || fallback;
-  imgElement.addEventListener('error', () => {
+  const applyFallback = () => {
     if (imgElement.dataset.fallbackApplied === '1') {
       return;
     }
     imgElement.dataset.fallbackApplied = '1';
     imgElement.src = fallbackUrl;
+  };
+
+  imgElement.addEventListener('error', () => {
+    applyFallback();
   });
+
+  // If load failure happened before the handler was attached, recover immediately.
+  if (imgElement.complete && imgElement.naturalWidth === 0) {
+    applyFallback();
+  }
 }
 
 async function apiFetch(url, options = {}) {
