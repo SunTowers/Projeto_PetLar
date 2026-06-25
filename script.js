@@ -157,7 +157,7 @@ async function loadCurrentUser() {
   try {
     currentUser = await fetchCurrentUser();
     if (currentUser && currentUser.profile_image_url) {
-      localStorage.setItem('userProfileImage', currentUser.profile_image_url);
+      localStorage.setItem('userProfileImage', resolveAssetUrl(currentUser.profile_image_url));
     } else {
       localStorage.removeItem('userProfileImage');
     }
@@ -171,7 +171,7 @@ async function loadCurrentUser() {
 function createAnimalCard(animal) {
   const article = document.createElement('article');
   article.className = 'card';
-  const imageUrl = animal.image_url || animal.image || 'fotos_animais_mockups/dog1.jfif';
+  const imageUrl = getAnimalImageUrl(animal, '/fotos_animais_mockups/dog1.jfif');
   article.innerHTML = `
     <div class="card-image-wrapper">
       <img class="card-image" src="${imageUrl}" alt="Foto de ${animal.name}">
@@ -447,6 +447,46 @@ function getApiBaseUrl() {
   }
 }
 
+function resolveAssetUrl(rawUrl) {
+  if (!rawUrl || typeof rawUrl !== 'string') {
+    return '';
+  }
+
+  const value = rawUrl.trim();
+  if (!value) {
+    return '';
+  }
+
+  if (value.startsWith('data:')) {
+    return value;
+  }
+
+  if (value.startsWith('/')) {
+    return `${getApiBaseUrl()}${value}`;
+  }
+
+  try {
+    const parsed = new URL(value, window.location.origin);
+    const appHost = window.location.hostname;
+    const isAppLocalHost = appHost === 'localhost' || appHost === '127.0.0.1';
+    const isSourceLocalHost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+
+    // Records created in local/dev may persist localhost URLs in DB/localStorage.
+    if (!isAppLocalHost && isSourceLocalHost) {
+      return `${getApiBaseUrl()}${parsed.pathname}${parsed.search}${parsed.hash}`;
+    }
+
+    return parsed.toString();
+  } catch (error) {
+    return value;
+  }
+}
+
+function getAnimalImageUrl(animal, fallback = '/fotos_animais_mockups/dog1.jfif') {
+  const candidate = (animal && (animal.image_url || animal.image)) || fallback;
+  return resolveAssetUrl(candidate) || fallback;
+}
+
 async function apiFetch(url, options = {}) {
   const requestOptions = { ...options, headers: { ...(options.headers || {}) } };
 
@@ -647,7 +687,7 @@ function renderAdoptionDetails(animal) {
     return;
   }
 
-  image.src = animal.image_url || animal.image || 'fotos_animais_mockups/gato1.jfif';
+  image.src = getAnimalImageUrl(animal, '/fotos_animais_mockups/gato1.jfif');
   image.alt = `Foto de ${animal.name}`;
   name.textContent = animal.name || 'Animal desconhecido';
   subtitle.textContent = `${animal.type || 'Animal'} · ${getAnimalAgeLabel(animal)} · ${animal.location || 'Local não informado'}`;
@@ -683,7 +723,7 @@ async function loadUserAnimalsHistory() {
 function createUserAnimalCard(animal) {
   const article = document.createElement('article');
   article.className = 'card';
-  const imageUrl = animal.image_url || animal.image || '/fotos_animais_mockups/dog1.jfif';
+  const imageUrl = getAnimalImageUrl(animal, '/fotos_animais_mockups/dog1.jfif');
   article.innerHTML = `
     <div class="card-image-wrapper">
       <img class="card-image" src="${imageUrl}" alt="Foto de ${animal.name}">
@@ -765,7 +805,7 @@ function createRequestCard(request, isReceivedRequest) {
   const animalName = request.animal_name || 'Animal desconhecido';
   const requesterName = request.requester_name || 'Você';
   const animalLocation = request.animal_location || 'Local não informado';
-  const imageUrl = request.animal_image || '/fotos_animais_mockups/dog1.jfif';
+  const imageUrl = resolveAssetUrl(request.animal_image || '/fotos_animais_mockups/dog1.jfif') || '/fotos_animais_mockups/dog1.jfif';
 
   article.innerHTML = `
     <div class="card-image-wrapper">
@@ -855,7 +895,7 @@ function createPublicationHistoryCard(animal) {
   const article = document.createElement('article');
   article.className = 'card';
 
-  const imageUrl = animal.image_url || '/fotos_animais_mockups/dog1.jfif';
+  const imageUrl = getAnimalImageUrl(animal, '/fotos_animais_mockups/dog1.jfif');
   const publicationDate = animal.created_at ? new Date(animal.created_at).toLocaleDateString('pt-BR') : 'Não informado';
   const adoptionDate = animal.adopted_at ? new Date(animal.adopted_at).toLocaleDateString('pt-BR') : null;
   const statusLabel = animal.status === 'adopted' ? 'Adotado/Despublicado' : 'Disponível';
@@ -1187,10 +1227,10 @@ let profileMenuEventsBound = false;
 function getProfileImage() {
   const storedImage = localStorage.getItem('userProfileImage');
   if (storedImage) {
-    return storedImage;
+    return resolveAssetUrl(storedImage) || storedImage;
   }
   if (currentUser && currentUser.profile_image_url) {
-    return currentUser.profile_image_url;
+    return resolveAssetUrl(currentUser.profile_image_url) || currentUser.profile_image_url;
   }
 
   return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="%233c3c3c"%3E%3Ccircle cx="32" cy="32" r="30" fill="%23f4f4f4"/%3E%3Cpath d="M32 18c6.6 0 12 5.4 12 12s-5.4 12-12 12-12-5.4-12-12 5.4-12 12-12zm0 26c10 0 18 5 18 11v3H14v-3c0-6 8-11 18-11z"/%3E%3C/svg%3E';
@@ -1447,7 +1487,7 @@ async function wireAnimalEditPage() {
 
   const currentImageEl = document.getElementById('editCurrentImage');
   if (currentImageEl) {
-    currentImageEl.src = animal.image_url || animal.image || 'fotos_animais_mockups/gato1.jfif';
+    currentImageEl.src = getAnimalImageUrl(animal, '/fotos_animais_mockups/gato1.jfif');
     currentImageEl.alt = `Foto atual de ${animal.name || 'animal'}`;
   }
 
