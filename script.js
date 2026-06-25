@@ -439,12 +439,12 @@ function getApiBaseUrl() {
     if ((parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') && parsed.port === '3000') {
       return origin;
     }
+
+    // In deployed environments (e.g. Render), call the API on the same host.
+    return origin;
   } catch (error) {
     return 'http://localhost:3000';
   }
-
-  // Keep a single API target for first deploy, independent from frontend host.
-  return 'http://localhost:3000';
 }
 
 async function apiFetch(url, options = {}) {
