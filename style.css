@@ -1118,7 +1118,7 @@ button {
   display: grid;
   grid-template-columns: 28px 1fr;
   gap: 14px;
-  align-items: center;
+  align-items: start;
   margin-bottom: 16px;
 }
 
@@ -1126,7 +1126,7 @@ button {
   margin-bottom: 0;
 }
 
-.contact-item span {
+.contact-item > span {
   display: inline-flex;
   width: 28px;
   height: 28px;
@@ -1135,6 +1135,26 @@ button {
   background: rgba(228, 124, 45, 0.14);
   border-radius: 10px;
   color: var(--accent);
+}
+
+.contact-item > div {
+  min-width: 0;
+  color: var(--text);
+}
+
+.contact-item > div strong {
+  color: var(--text);
+}
+
+.contact-item > div span {
+  display: inline;
+  width: auto;
+  height: auto;
+  background: transparent;
+  color: var(--accent);
+  border-radius: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .detail-action {
